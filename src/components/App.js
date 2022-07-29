@@ -11,7 +11,9 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import ConfirmationPopup from './ConfirmationPopup';
-
+import Login from './Login';
+import { Switch } from 'react-router-dom';
+import ProtectedRoute from './ProtectedRote';
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
@@ -22,6 +24,9 @@ function App() {
   const [cards, setCards] = useState([]);
   const [toDeleteCard, setToDeleteCard] = useState(null);
   const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(true);
+  consr [isLoggedIn, setIsLoggedIn] =useState(false);
+
   //get user data
   useEffect(() => {
     api
@@ -140,11 +145,30 @@ function App() {
     setEditProfilePopupOpen(false);
     setConfirmationPopupOpen(false);
     setSelectedCard(null);
+    setIsLoginOpen(false);
   }
+  const handleLoginSubmit = (loginCredentials) => {
+    login(loginCredentials).then(({ data }) => {
+      if (data) {
+        console.log(data);
+        setCurrentUser({
+          ...currentUser,
+          email: data.email,
+          avatar: data.avatar,
+          username: data.name,
+        });
+        setLoginEmail('');
+        setLoginPassword('');
+        setIsLoggedIn(true);
+        setIsLoginOpen(false);
+      }
+    })}
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Header />
+        <Header handleLoginClick={() => setIsLoginOpen(true)} />
+        <Switch>
+        <ProtectedRoute exact path="/" loggedIn={isLoggedIn}>
         <Main
           onEditProfileClick={handleEditProfileClick}
           onAddPlaceClick={handleAddPlaceClick}
@@ -154,6 +178,15 @@ function App() {
           onCardLike={handleCardLike}
           cards={cards}
         />
+       
+        </ProtectedRoute>
+        <Route path="/signin">
+            <Login onLogin={onLogin} />
+            </Route>
+            <Route>
+            {isLoggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
+          </Route>
+            </Switch>
         <Footer />
 
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
