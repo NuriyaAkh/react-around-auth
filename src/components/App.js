@@ -7,6 +7,7 @@ import Footer from './Footer';
 import ImagePopup from './ImagePopup';
 import '../index.css';
 import api from '../utils/api';
+import * as auth from '../utils/auth';
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
@@ -14,7 +15,7 @@ import AddPlacePopup from './AddPlacePopup';
 import ConfirmationPopup from './ConfirmationPopup';
 import Login from './Login';
 import Register from './Register';
-import ProtectedRoute from './ProtectedRote';
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
@@ -168,16 +169,9 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        {/* <Switch> */}
-          <Route path="/signin">
-            <Header />
-            <Register />
-          </Route>
-          <Route>
-            {isLoggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
-          </Route>
+        <Header email={email} />
+        <Switch>
           <ProtectedRoute exact path="/" loggedIn={isLoggedIn}>
-            <Header />
             <Main
               onEditProfileClick={handleEditProfileClick}
               onAddPlaceClick={handleAddPlaceClick}
@@ -188,36 +182,44 @@ function App() {
               cards={cards}
             />
           </ProtectedRoute>
+          <Route path="/signup">
+            <Register />
+          </Route>
+          <Route path="signin">
+            <Login></Login>
+          </Route>
+          <Route>
+            {isLoggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
+          </Route>
+        </Switch>
+        <Footer />
 
-          <Footer />
-
-          <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-          <EditProfilePopup
-            isOpen={isEditProfilePopupOpen}
-            onUpdate={handleUpdateUser}
-            onClose={closeAllPopups}
-            buttonText={isLoading ? 'Saving...' : 'Save'}
-          />
-          <EditAvatarPopup
-            isOpen={isEditAvatarPopupOpen}
-            onUpdate={handleUpdateAvatar}
-            onClose={closeAllPopups}
-            buttonText={isLoading ? 'Saving...' : 'Save'}
-          />
-          <AddPlacePopup
-            isOpen={isAddPlacePopupOpen}
-            onUpdate={handleAddPlaceCard}
-            onClose={closeAllPopups}
-            buttonText={isLoading ? 'Creating...' : 'Create'}
-          />
-          <ConfirmationPopup
-            isOpen={isConfirmationPopupOpen}
-            onUpdate={handleCardDelete}
-            onClose={closeAllPopups}
-            card={toDeleteCard}
-            buttonText={isLoading ? 'Deleting...' : 'Yes'}
-          />
-        {/* </Switch> */}
+        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+        <EditProfilePopup
+          isOpen={isEditProfilePopupOpen}
+          onUpdate={handleUpdateUser}
+          onClose={closeAllPopups}
+          buttonText={isLoading ? 'Saving...' : 'Save'}
+        />
+        <EditAvatarPopup
+          isOpen={isEditAvatarPopupOpen}
+          onUpdate={handleUpdateAvatar}
+          onClose={closeAllPopups}
+          buttonText={isLoading ? 'Saving...' : 'Save'}
+        />
+        <AddPlacePopup
+          isOpen={isAddPlacePopupOpen}
+          onUpdate={handleAddPlaceCard}
+          onClose={closeAllPopups}
+          buttonText={isLoading ? 'Creating...' : 'Create'}
+        />
+        <ConfirmationPopup
+          isOpen={isConfirmationPopupOpen}
+          onUpdate={handleCardDelete}
+          onClose={closeAllPopups}
+          card={toDeleteCard}
+          buttonText={isLoading ? 'Deleting...' : 'Yes'}
+        />
       </div>
     </CurrentUserContext.Provider>
   );
