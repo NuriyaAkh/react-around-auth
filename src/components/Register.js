@@ -1,5 +1,7 @@
 import React from "react";
 import * as auth from '../utils/auth';
+import { Link, useHistory } from 'react-router-dom';
+
 const Register =()=>{
   const [values, setValues] = React.useState({
     email:"",
@@ -12,47 +14,48 @@ console.log(values);
   }
 const handleSubmit=(event)=>{
   event.preventDefault();
+  if (values){
   auth.register(values);
-
-}
+}}
   React.useEffect(() => {
-    
-  }, []);
+    setValues("");
+  }, [values]);
 
   return(
-    <div className="register">
-    <form className="register__form" onSubmit={handleSubmit}>
-      <div className="register__form-content">
-        <p className="register__form-title">Sign up</p>
+  
+    <div className="auth">
+    <form className="auth__form" onSubmit={handleSubmit}>
+      <div className="auth__form-content">
+        <p className="auth__form-title">Sign up</p>
 
         <input
-          className="register__form-input"
+          className="auth__form-input"
           name="name"
-          placeholder="email"
+          placeholder="Email"
           id="email"
           type="text"
           value={values.email}
           required
-          onChange={(event) => setValues(event.target.value)}
+          onChange={handleChange}
         />
         <input
-          className="register__form-input"
+          className="auth__form-input"
           name="password"
-          placeholder="password"
+          placeholder="Password"
           id="password"
           type="password"
           value={values.password}
           required
-          onChange={(event) => setValues(event.target.value)}
+          onChange={handleChange}
         />
       </div>
-      <div className="register__form-content">
-        <button className="register__button" type="submit">
+      <div className="auth__form-content">
+        <button className="auth__button" type="submit">
           Sign up
         </button>
-        <p className="register__text">
+        <p className="auth__text">
           Already a member?{' '}
-          <Link className="register__link" to="/signin">
+          <Link className="auth__link" to="/signin">
             Log in here!
           </Link>
         </p>

@@ -54,3 +54,11 @@
 @import url(./blocks/profile/__img-container/profile__img-container.css);
 @import url(./blocks/profile/__img-edit-logo/profile__img-edit-logo.css);
 @import url(./blocks/profile/__img-icon/profile__img-icon.css);
+
+@import url(./blocks/auth/auth.css);
+@import url(./blocks/auth/__button/auth__button.css);
+@import url(./blocks/auth/__form-content/auth__form-content.css);
+@import url(./blocks/auth/__form-input/auth__form-input.css);
+@import url(./blocks/auth/__form-title/auth__form-title.css);
+@import url(./blocks/auth/__form/auth__form.css);
+@import url(./blocks/auth/__text/auth__text.css);

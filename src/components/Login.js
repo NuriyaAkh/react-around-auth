@@ -1,116 +1,67 @@
-// import { useState, useEffect, useRef } from 'react';
-// import ModalWithForm from '../ModalWithForm/ModalWithForm';
-// import { useFormAndValidation } from './FormValidator';
+import React from "react";
+import * as auth from '../utils/auth';
+import { Link, useHistory } from 'react-router-dom';
 
-// /**
-//  * The **Login** component will let users signin to the web application.
-// **/
-// const Login = ({
-//   isOpen,
-//   onClose,
-//   onSubmit,
-//   loginEmail,
-//   setLoginEmail,
-//   loginPassword,
-//   setLoginPassword,
-// }) => {
-  
+const Login =()=>{
+  const [values, setValues] = React.useState({
+    email:"",
+    password:""
+  });
+  const handleChange=(event)=>{
+    const {name, value} = event.target;
+    setValues({...values,[name]:value})
+console.log(values);
+  }
+const handleSubmit=(event)=>{
+  event.preventDefault();
+  auth.register(values);
 
-//   // const formRef = useRef(null);
-//   // const [isFormValid, setIsFormValid] = useState(false);
-// const history=useHistory();
- 
-
-//   const handleFormChange = () => {
-//     setIsFormValid(formRef.current.checkValidity());
-//   };
-
-//   // Reset form values every time the popup opens
-//   useEffect(() => {
-//     const initialValues = {
-//       'login-email': '',
-//       'login-password': '',
-//     };
-//     setLoginEmail('');
-//     setLoginPassword('');
-//     resetForm({ ...initialValues }, { ...initialValues }, true);
-//   }, [resetForm, setLoginEmail, setLoginPassword]);
-
-//   const handleInputChange = (e) => {
-//     if (e.target.name === 'login-email') {
-//       setLoginEmail(e.target.value);
-//     }
-//     if (e.target.name === 'login-password') {
-//       setLoginPassword(e.target.value);
-//     }
-//     handleChange(e);
-//   };
-
-//   const handleFormSubmit = (e) => {
-//     e.preventDefault();
-   
-//       onSubmit({ email: loginEmail, password: loginPassword });
+}
+  React.useEffect(() => {
     
-//   };
+  }, [values]);
 
- 
-
-//     return (
-//       <PopupWithForm
-//         title="Login"
-//         name="login-form"
-//         formId="login"
-//         onSubmit={handleFormSubmit}
-//         isOpen={isOpen}
-//         onClose={onClose}
-//         buttonText={buttonText}
-//         activeButton={isNameValid && isDescriptionValid}
-//         children={
-//           <>
-//             <input
-//               type="email"
-//               className={`form__input ${
-//                 isNameValid ? '' : 'form__input_type_error'
-//               }`}
-//               id="login-email"
-//               name="login-email"
-//               placeholder="Email"
-//               required
-//               minLength="2"
-//               maxLength="40"
-//               value={loginEmail}
-//               onChange={handleInputChange}
-//             />
+  return(
   
-//             <span
-//               className={`username-input-error ${
-//                 isNameValid ? '' : 'form__error-text_active'
-//               }`}
-//             >
-//               {errorMessage.name}
-//             </span>
-//             <input
-//               type="password"
-//               className="form__input "
-//               id="login-password"
-//               name="login-password"
-//               placeholder="Password"
-//               required
-//               minLength="8"
-//               maxLength="200"
-//               value={loginPassword}
-//               onChange={handleInputChange}
-//             />
-//             <span
-//               className={`about-input-error ${
-//                 isDescriptionValid ? '' : 'form__error-text_active'
-//               }`}
-//             >
-//               {errorMessage.description}
-//             </span>
-//           </>
-//         }
-//       />
-//     );
-//   }
-//   export default Login;
+    <div className="auth">
+    <form className="auth__form" onSubmit={handleSubmit}>
+      <div className="auth__form-content">
+        <p className="auth__form-title">Log In</p>
+
+        <input
+          className="auth__form-input"
+          name="name"
+          placeholder="Email"
+          id="email"
+          type="text"
+          value={values.email}
+          required
+          onChange={handleChange}
+        />
+        <input
+          className="auth__form-input"
+          name="password"
+          placeholder="Password"
+          id="password"
+          type="password"
+          value={values.password}
+          required
+          onChange={handleChange}
+        />
+      </div>
+      <div className="auth__form-content">
+        <button className="auth__button" type="submit">
+          Log In
+        </button>
+        <p className="auth__text">
+          Not a member yet?{' '}
+          <Link className="auth__link" to="/signin">
+            Sign up here!
+          </Link>
+        </p>
+      </div>
+    </form>
+  </div>
+  )
+}
+export default Login;

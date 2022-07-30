@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Route, Switch, Redirect, useHistory } from "react-router-dom";
+import {Route, Switch, Redirect, useHistory} from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
@@ -13,8 +13,9 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import ConfirmationPopup from './ConfirmationPopup';
 import Login from './Login';
-
+import Register from './Register';
 import ProtectedRoute from './ProtectedRote';
+
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
@@ -26,7 +27,7 @@ function App() {
   const [toDeleteCard, setToDeleteCard] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] =useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   //get user data
   useEffect(() => {
@@ -167,56 +168,56 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        {/* <Header handleLoginClick={() => setIsLoginOpen(true)} /> */}
-        <Switch>
-        <ProtectedRoute exact path="/" loggedIn={isLoggedIn}>
-        <Main
-          onEditProfileClick={handleEditProfileClick}
-          onAddPlaceClick={handleAddPlaceClick}
-          onEditAvatarClick={handleEditAvatarClick}
-          onCardDelete={handleDeleteClick}
-          onCardClick={handleImageClick}
-          onCardLike={handleCardLike}
-          cards={cards}
-        />
-       
-        </ProtectedRoute>
-        <Route path="/signin">
-            {/* <Login onLogin={onLogin} /> */}
-            </Route>
-            <Route>
+        {/* <Switch> */}
+          <Route path="/signin">
+            <Header />
+            <Register />
+          </Route>
+          <Route>
             {isLoggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
           </Route>
-            </Switch>
-        <Footer />
+          <ProtectedRoute exact path="/" loggedIn={isLoggedIn}>
+            <Header />
+            <Main
+              onEditProfileClick={handleEditProfileClick}
+              onAddPlaceClick={handleAddPlaceClick}
+              onEditAvatarClick={handleEditAvatarClick}
+              onCardDelete={handleDeleteClick}
+              onCardClick={handleImageClick}
+              onCardLike={handleCardLike}
+              cards={cards}
+            />
+          </ProtectedRoute>
 
-        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-        <EditProfilePopup
-          isOpen={isEditProfilePopupOpen}
-          onUpdate={handleUpdateUser}
-          onClose={closeAllPopups}
-          buttonText={isLoading ? 'Saving...' : 'Save'}
-          
-        />
-        <EditAvatarPopup
-          isOpen={isEditAvatarPopupOpen}
-          onUpdate={handleUpdateAvatar}
-          onClose={closeAllPopups}
-          buttonText={isLoading ? 'Saving...' : 'Save'}
-        />
-        <AddPlacePopup
-          isOpen={isAddPlacePopupOpen}
-          onUpdate={handleAddPlaceCard}
-          onClose={closeAllPopups}
-          buttonText={isLoading ? 'Creating...' : 'Create'}
-        />
-        <ConfirmationPopup
-          isOpen={isConfirmationPopupOpen}
-          onUpdate={handleCardDelete}
-          onClose={closeAllPopups}
-          card={toDeleteCard}
-          buttonText={isLoading ? 'Deleting...' : 'Yes'}
-        />
+          <Footer />
+
+          <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+          <EditProfilePopup
+            isOpen={isEditProfilePopupOpen}
+            onUpdate={handleUpdateUser}
+            onClose={closeAllPopups}
+            buttonText={isLoading ? 'Saving...' : 'Save'}
+          />
+          <EditAvatarPopup
+            isOpen={isEditAvatarPopupOpen}
+            onUpdate={handleUpdateAvatar}
+            onClose={closeAllPopups}
+            buttonText={isLoading ? 'Saving...' : 'Save'}
+          />
+          <AddPlacePopup
+            isOpen={isAddPlacePopupOpen}
+            onUpdate={handleAddPlaceCard}
+            onClose={closeAllPopups}
+            buttonText={isLoading ? 'Creating...' : 'Create'}
+          />
+          <ConfirmationPopup
+            isOpen={isConfirmationPopupOpen}
+            onUpdate={handleCardDelete}
+            onClose={closeAllPopups}
+            card={toDeleteCard}
+            buttonText={isLoading ? 'Deleting...' : 'Yes'}
+          />
+        {/* </Switch> */}
       </div>
     </CurrentUserContext.Provider>
   );
