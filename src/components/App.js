@@ -29,6 +29,8 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const history = useHistory();
+  const [email,setEmail]=useState('')
 
   //get user data
   useEffect(() => {
@@ -150,26 +152,17 @@ function App() {
     setSelectedCard(null);
     setIsLoginOpen(false);
   }
-  // const handleLoginSubmit = (loginCredentials) => {
-  //   login(loginCredentials).then(({ data }) => {
-  //     if (data) {
-  //       console.log(data);
-  //       setCurrentUser({
-  //         ...currentUser,
-  //         email: data.email,
-  //         avatar: data.avatar,
-  //         username: data.name,
-  //       });
-  //       setLoginEmail('');
-  //       setLoginPassword('');
-  //       setIsLoggedIn(true);
-  //       setIsLoginOpen(false);
-  //     }
-  //   })}
+  function onLogOut() {
+    localStorage.removeItem("jwt");
+    setIsLoggedIn(false);
+    history.push("/signin");
+    closeAllPopups();
+  }
+  
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Header email={email} />
+        <Header email={email} onLogOut={onLogOut} />
         <Switch>
           <ProtectedRoute exact path="/" loggedIn={isLoggedIn}>
             <Main

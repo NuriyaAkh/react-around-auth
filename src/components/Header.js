@@ -2,7 +2,10 @@ import logo from '../images/logo.svg';
 import React from 'react';
 import {Link, Route} from 'react-router-dom';
 
-const Header = () => {
+const Header = (onLogOut,email) => {
+  const handleLogOut=()=>{
+    onLogOut();
+  }
   return (
     <header className="header">
       <img className="header__logo" src={logo} alt="logo Around US" />
