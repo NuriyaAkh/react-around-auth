@@ -8,8 +8,11 @@ const Header = () => {
       <img className="header__logo" src={logo} alt="logo Around US" />
       <Route exact path="/">
         <div className="header__container">
-          <p className="header__user-email">{email}</p>
-          <button className="header__log-out" onClick={handleLogOut}>
+          {/* <p className="header__user-email">{email}</p> */}
+
+          <button className="header__log-out" >
+            
+            {/* onClick={handleLogOut} > */}
             Log Out
           </button>
         </div>

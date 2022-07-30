@@ -1,3 +1,4 @@
+import React from 'react';
 import PopupWithForm from './PopupWithForm';
 import { useState} from 'react';
 export default function AddPlacePopup({isOpen, onUpdate, onClose, buttonText}) {

@@ -1,3 +1,4 @@
+import React from "react";
 export default function ImagePopup({card, onClose}) {
   return (
     <div className={`forms ${card ? 'forms_is-open' : ''}`}>

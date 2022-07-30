@@ -1,3 +1,4 @@
+import React from 'react';
 import PopupWithForm from './PopupWithForm';
 
 export default function ConfirmationPopup({
@@ -11,7 +12,7 @@ export default function ConfirmationPopup({
     evt.preventDefault();
     console.log('yes to delete');
     onUpdate(card);
-  }
+  };
 
   return (
     <PopupWithForm
@@ -21,21 +22,23 @@ export default function ConfirmationPopup({
       onClose={onClose}
       isOpen={isOpen}
       onSubmit={handleCardDeleteSubmit}
-    />
-  );
-}
-<div class="forms" id="confirm-popup">
-  <div class="forms__container">
+    children ={
+      
+<div className="forms" id="confirm-popup">
+  <div className="forms__container">
     <button
       aria-label="close"
       type="button"
-      class="forms__button-close"
+      className="forms__button-close"
     ></button>
-    <form class="form" name="confirm-form" id="confirm-form" novalidate>
-      <h3 class="forms__title">Are you sure?</h3>
-      <button type="submit" class="form__button">
+    <form className="form" name="confirm-form" id="confirm-form" novalidate>
+      <h3 className="forms__title">Are you sure?</h3>
+      <button type="submit" className="form__button">
         Yes
       </button>
     </form>
   </div>
-</div>;
+</div>}
+/>
+);
+}

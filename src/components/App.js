@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
@@ -12,7 +13,7 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import ConfirmationPopup from './ConfirmationPopup';
 import Login from './Login';
-import { Switch } from 'react-router-dom';
+
 import ProtectedRoute from './ProtectedRote';
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
@@ -23,9 +24,9 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [toDeleteCard, setToDeleteCard] = useState(null);
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(true);
-  consr [isLoggedIn, setIsLoggedIn] =useState(false);
+  const [isLoggedIn, setIsLoggedIn] =useState(false);
 
   //get user data
   useEffect(() => {
@@ -147,26 +148,26 @@ function App() {
     setSelectedCard(null);
     setIsLoginOpen(false);
   }
-  const handleLoginSubmit = (loginCredentials) => {
-    login(loginCredentials).then(({ data }) => {
-      if (data) {
-        console.log(data);
-        setCurrentUser({
-          ...currentUser,
-          email: data.email,
-          avatar: data.avatar,
-          username: data.name,
-        });
-        setLoginEmail('');
-        setLoginPassword('');
-        setIsLoggedIn(true);
-        setIsLoginOpen(false);
-      }
-    })}
+  // const handleLoginSubmit = (loginCredentials) => {
+  //   login(loginCredentials).then(({ data }) => {
+  //     if (data) {
+  //       console.log(data);
+  //       setCurrentUser({
+  //         ...currentUser,
+  //         email: data.email,
+  //         avatar: data.avatar,
+  //         username: data.name,
+  //       });
+  //       setLoginEmail('');
+  //       setLoginPassword('');
+  //       setIsLoggedIn(true);
+  //       setIsLoginOpen(false);
+  //     }
+  //   })}
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Header handleLoginClick={() => setIsLoginOpen(true)} />
+        {/* <Header handleLoginClick={() => setIsLoginOpen(true)} /> */}
         <Switch>
         <ProtectedRoute exact path="/" loggedIn={isLoggedIn}>
         <Main
@@ -181,7 +182,7 @@ function App() {
        
         </ProtectedRoute>
         <Route path="/signin">
-            <Login onLogin={onLogin} />
+            {/* <Login onLogin={onLogin} /> */}
             </Route>
             <Route>
             {isLoggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
