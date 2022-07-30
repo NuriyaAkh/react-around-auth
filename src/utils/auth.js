@@ -2,10 +2,11 @@ const BASE_URL = "https://register.nomoreparties.co"
 const checkServerResponse = (res) => {
   return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
 };
-const register = ({ email, password}) => {
+const register = (email, password) => {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     headers: {
+      Accept: 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ email, password }),
@@ -41,4 +42,4 @@ const validateUser = (token) => {
     .then((data) => data);
 };
 
-export { register, login, validateUser};
+export {BASE_URL, register, login, validateUser};

@@ -7,17 +7,18 @@ const Header = () => {
     <header className="header">
       <img className="header__logo" src={logo} alt="logo Around US" />
       <Route exact path="/">
+        
         <div className="header__container">
-          {/* <p className="header__user-email">{email}</p> */}
+          <p className="header__user-email">{email}</p>
 
-          <button className="header__log-out" >
+          <button className="header__log-out"  
             
-            {/* onClick={handleLogOut} > */}
+             onClick={handleLogOut} > 
             Log Out
           </button>
         </div>
       </Route>
-      <Route path="/sigup">
+      <Route path="/signup">
         <Link className="header__link" to="signin">
           Sign In
         </Link>
