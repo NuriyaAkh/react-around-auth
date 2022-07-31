@@ -1,26 +1,37 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-const Register = (onRegister) => {
-  const [values, setValues] = React.useState({
-    email: '',
-    password: '',
-  });
-  React.useEffect(() => {
-    setValues('');
-    console.log(values);
-  }, [values]);
+const Register = ({onRegister}) => {
+  // const [values, setValues] = React.useState({
+  //   email: '',
+  //   password: '',
+  // });
+  // React.useEffect(() => {
+  //   setValues('');
+  //   console.log(values);
+  // }, [values]);
 
-  const handleChange = (event) => {
-    const {name, value} = event.target;
-    setValues((preValues) => ({...preValues, [name]: value}));
-  };
-  const handleSubmit = (event) => {
+  // const handleChange = (event) => {
+  //   const {name, value} = event.target;
+  //   setValues((preValues) => ({...preValues, [name]: value}));
+  // };
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   onRegister(values);
+  //   console.log(values);
+  //   console.log('values');
+  // };
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  const handleSubmit=(event)=> {
     event.preventDefault();
-    onRegister(values);
-    console.log(values);
-    console.log('values');
-  };
+    const loginUserData = {
+      email,
+      password,
+    };
+    onRegister(loginUserData);
+  }
 
   return (
     <div className="auth">
@@ -34,9 +45,11 @@ const Register = (onRegister) => {
             placeholder="Email"
             id="email"
             type="text"
-            value={values.email}
+            value={email}
+            //value={values.email}
             required
-            onChange={handleChange}
+            onChange={(event) => setEmail(event.target.value)}
+            //onChange={handleChange}
           />
           <input
             className="auth__form-input"
@@ -44,9 +57,11 @@ const Register = (onRegister) => {
             placeholder="Password"
             id="password"
             type="password"
-            value={values.password}
+            value={password}
+            //value={values.password}
             required
-            onChange={handleChange}
+            onChange={(event) => setPassword(event.target.value)}
+            //onChange={handleChange}
           />
         </div>
         <div className="auth__form-content">

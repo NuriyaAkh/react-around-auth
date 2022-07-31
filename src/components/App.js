@@ -72,9 +72,9 @@ function App() {
     }
   }, [history]);
 
-  const onRegister = (values) => {
+  const onRegister = ({email,password}) => {
     auth
-      .register(values)
+      .register({email,password})
       .then((res) => {
         if (res.data._id) {
           setInfoToolStatus('success');
@@ -90,10 +90,10 @@ function App() {
         setInfoToolPopupOpen(true);
       });
   };
-  
-  const onLogIn = (values) => {
+
+  const onLogIn = ({email,password}) => {
     auth
-      .login(values)
+      .login({email,password})
       .then((res) => {
         if (res.token) {
           setIsLoggedIn(true);
