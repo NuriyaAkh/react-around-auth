@@ -17,7 +17,6 @@ import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
 import InfoTooltip from './InfoTooltip';
 function App() {
-
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
@@ -74,9 +73,9 @@ function App() {
     }
   }, [history]);
 
-  const onRegister = ({email,password}) => {
+  const onRegister = ({email, password}) => {
     auth
-      .register({email,password})
+      .register({email, password})
       .then((res) => {
         if (res.data._id) {
           setInfoToolStatus('success');
@@ -93,9 +92,9 @@ function App() {
       });
   };
 
-  const onLogIn = ({email,password}) => {
+  const onLogIn = ({email, password}) => {
     auth
-      .login({email,password})
+      .login({email, password})
       .then((res) => {
         if (res.token) {
           setIsLoggedIn(true);
@@ -233,13 +232,13 @@ function App() {
             />
           </ProtectedRoute>
           <Route path="/signup">
-            <Register  onRegister={onRegister} />
+            <Register onRegister={onRegister} />
           </Route>
           <Route path="/signin">
-            <Login  onLogIn={onLogIn}/>
+            <Login onLogIn={onLogIn} />
           </Route>
           <Route>
-            {isLoggedIn ? (<Redirect to="/" />) : (<Redirect to="/signin" />)}
+            {isLoggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
           </Route>
         </Switch>
         <Footer />
