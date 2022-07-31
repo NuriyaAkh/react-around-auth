@@ -8,13 +8,14 @@ const Register = (onRegister) => {
   });
   const handleChange = (event) => {
     const {name, value} = event.target;
-    setValues({...values, [name]: value});
+    setValues((preValues)=>({...preValues, [name]: value}));
     console.log(values);
   };
   const handleSubmit = (event) => {
     event.preventDefault();
     onRegister(values);
   };
+ 
 
   React.useEffect(() => {
     setValues('');
@@ -53,7 +54,7 @@ const Register = (onRegister) => {
           </button>
           <p className="auth__text">
             Already a member?{' '}
-            <Link className="auth__link" to="/signin">
+            <Link className="auth__link" to="login">
               Log in here!
             </Link>
           </p>

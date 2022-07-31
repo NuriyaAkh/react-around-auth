@@ -23,7 +23,7 @@ const Header = (onLogOut,email) => {
       </Route>
       <Route path="/signup">
         <Link className="header__link" to="signin">
-          Sign In
+          Log In
         </Link>
       </Route>
       <Route path="/signin">

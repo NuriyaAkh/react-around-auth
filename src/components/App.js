@@ -72,7 +72,7 @@ function App() {
     }
   }, [history]);
 
-  const onRegister = ({values}) => {
+  const onRegister = (values) => {
     auth
       .register(values)
       .then((res) => {
@@ -232,8 +232,8 @@ function App() {
           <Route path="/signup">
             <Register route="/signin" onRegister={onRegister} />
           </Route>
-          <Route path="signin">
-            <Login route="signup" onLogIn={onLogIn}></Login>
+          <Route path="/signin">
+            <Login route="/signup" onLogIn={onLogIn}></Login>
           </Route>
           <Route>
             {isLoggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
