@@ -10,7 +10,6 @@ export default function ConfirmationPopup({
 }) {
   function handleCardDeleteSubmit(evt) {
     evt.preventDefault();
-    console.log('yes to delete');
     onUpdate(card);
   }
 
@@ -23,7 +22,6 @@ export default function ConfirmationPopup({
       onClose={onClose}
       isOpen={isOpen}
       onSubmit={handleCardDeleteSubmit}
-      
     />
   );
 }

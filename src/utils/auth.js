@@ -10,7 +10,7 @@ const register = ({email, password}) => {
     },
     body: JSON.stringify({email, password}),
   })
-    .then(checkServerResponse)
+    
     .then((res) => {
       if (res.status === 201) {
         return res.json();

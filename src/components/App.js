@@ -81,14 +81,17 @@ function App() {
           setInfoToolStatus('success');
           setInfoToolPopupOpen(true);
           history.push('/signin');
+          console.log("res good")
         } else {
           setInfoToolStatus('fail');
           setInfoToolPopupOpen(true);
+          console.log("res bad");
         }
       })
       .catch((err) => {
         setInfoToolStatus('fail');
         setInfoToolPopupOpen(true);
+        console.log("res error");
       });
   };
 
@@ -125,8 +128,6 @@ function App() {
     setSelectedCard(card);
   }
   function handleDeleteClick(card) {
-    console.log('delete click');
-    console.log(card._id);
     setConfirmationPopupOpen(true);
     setToDeleteCard(card);
   }
@@ -147,7 +148,6 @@ function App() {
       .catch((err) => console.error(`Error while executing: ${err}`));
   }
   function handleCardDelete(card) {
-    console.log('card deleted');
     setIsLoading(true);
     api
       .deleteCard(card._id)

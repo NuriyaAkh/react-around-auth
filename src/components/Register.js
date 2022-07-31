@@ -7,6 +7,7 @@ const Register = ({onRegister}) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log("register submit");
     const loginUserData = {
       email,
       password,
