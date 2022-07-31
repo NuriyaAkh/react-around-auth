@@ -36,7 +36,6 @@ function App() {
     api
       .getUserData()
       .then((data) => {
-        // console.log(data);
         setCurrentUser(data);
       })
       .catch((err) =>
@@ -81,17 +80,14 @@ function App() {
           setInfoToolStatus('success');
           setInfoToolPopupOpen(true);
           history.push('/signin');
-          console.log("res good")
         } else {
           setInfoToolStatus('fail');
           setInfoToolPopupOpen(true);
-          console.log("res bad");
         }
       })
       .catch((err) => {
         setInfoToolStatus('fail');
         setInfoToolPopupOpen(true);
-        console.log("res error");
       });
   };
 

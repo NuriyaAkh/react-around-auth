@@ -1,6 +1,6 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
-import { useState} from 'react';
+import {useState} from 'react';
 export default function AddPlacePopup({isOpen, onUpdate, onClose, buttonText}) {
   const [cardTitle, setCardTitle] = useState('');
   const [imageLink, setImageLink] = useState('');
@@ -12,7 +12,6 @@ export default function AddPlacePopup({isOpen, onUpdate, onClose, buttonText}) {
   });
 
   function handleFormSubmit(evt) {
-    //console.log('card added');
     evt.preventDefault();
     onUpdate({
       name: cardTitle,
@@ -36,7 +35,7 @@ export default function AddPlacePopup({isOpen, onUpdate, onClose, buttonText}) {
     } else {
       setIsImageLinkValid(false);
     }
-   // setIsImageLinkValid(e.target.validity.valid);
+    // setIsImageLinkValid(e.target.validity.valid);
     setErrorMessage({imageLink: e.target.validationMessage});
   }
   return (
@@ -48,7 +47,7 @@ export default function AddPlacePopup({isOpen, onUpdate, onClose, buttonText}) {
       onSubmit={handleFormSubmit}
       isOpen={isOpen}
       onClose={onClose}
-      activeButton= {isCardTitleValid && isImageLinkValid}
+      activeButton={isCardTitleValid && isImageLinkValid}
       children={
         <>
           <input

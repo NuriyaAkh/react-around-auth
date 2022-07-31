@@ -9,13 +9,11 @@ const register = ({email, password}) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({email, password}),
-  })
-    
-    .then((res) => {
-      if (res.status === 201) {
-        return res.json();
-      }
-    });
+  }).then((res) => {
+    if (res.status === 201) {
+      return res.json();
+    }
+  });
 };
 const login = ({email, password}) => {
   return fetch(`${BASE_URL}/signin`, {
@@ -47,4 +45,4 @@ const validateUser = (token) => {
     .then((data) => data);
 };
 
-export { register, login, validateUser};
+export {register, login, validateUser};
