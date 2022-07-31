@@ -42,6 +42,8 @@
 @import url(./blocks/form/__error-text/form__error-text.css);
 @import url(./blocks/form/__error-text/_active/form__error-text_active.css);
 @import url(./blocks/form/__button/_disabled/form__button_disabled.css);
+@import url(./blocks/form/__icon/form__icon.css);
+@import url(./blocks/form/__status-message/form__status-message.css);
 
 @import url(./blocks/page/page.css);
 
