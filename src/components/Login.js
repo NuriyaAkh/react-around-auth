@@ -37,7 +37,7 @@ const Login = ({onLogIn}) => {
 
           <input
             className="auth__form-input"
-            name="name"
+            name="email"
             placeholder="Email"
             id="email"
             type="text"

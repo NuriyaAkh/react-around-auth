@@ -17,6 +17,7 @@ import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
 import InfoTooltip from './InfoTooltip';
 function App() {
+
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
@@ -54,6 +55,7 @@ function App() {
         console.error(`Error while executing cards data: ${err}`)
       );
   }, []);
+
   useEffect(() => {
     const userToken = localStorage.getItem('jwt');
     if (userToken) {
@@ -231,13 +233,13 @@ function App() {
             />
           </ProtectedRoute>
           <Route path="/signup">
-            <Register route="/signin" onRegister={onRegister} />
+            <Register  onRegister={onRegister} />
           </Route>
           <Route path="/signin">
-            <Login route="/signup" onLogIn={onLogIn}></Login>
+            <Login  onLogIn={onLogIn}/>
           </Route>
           <Route>
-            {isLoggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
+            {isLoggedIn ? (<Redirect to="/" />) : (<Redirect to="/signin" />)}
           </Route>
         </Switch>
         <Footer />
