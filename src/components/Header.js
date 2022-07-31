@@ -2,7 +2,7 @@ import logo from '../images/logo.svg';
 import React from 'react';
 import {Link, Route} from 'react-router-dom';
 
-const Header = (onLogOut,email) => {
+const Header = ({onLogOut,email}) => {
   const handleLogOut=()=>{
     onLogOut();
   }
