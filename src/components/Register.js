@@ -6,20 +6,21 @@ const Register = (onRegister) => {
     email: '',
     password: '',
   });
+  React.useEffect(() => {
+    setValues('');
+    console.log(values);
+  }, [values]);
+
   const handleChange = (event) => {
     const {name, value} = event.target;
-    setValues((preValues)=>({...preValues, [name]: value}));
-    console.log(values);
+    setValues((preValues) => ({...preValues, [name]: value}));
   };
   const handleSubmit = (event) => {
     event.preventDefault();
     onRegister(values);
+    console.log(values);
+    console.log('values');
   };
- 
-
-  React.useEffect(() => {
-    setValues('');
-  }, [values]);
 
   return (
     <div className="auth">
@@ -29,7 +30,7 @@ const Register = (onRegister) => {
 
           <input
             className="auth__form-input"
-            name="name"
+            name="email"
             placeholder="Email"
             id="email"
             type="text"

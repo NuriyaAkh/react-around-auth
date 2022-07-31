@@ -8,17 +8,16 @@ const Login = ({onLogIn}) => {
   });
   const handleChange = (event) => {
     const {name, value} = event.target;
-    setValues((preValues)=>({...preValues, [name]: value}));
-    console.log(values);
+    setValues((preValues) => ({...preValues, [name]: value}));
   };
   const handleSubmit = (event) => {
     event.preventDefault();
     onLogIn(values);
+    console.log("login");
   };
   React.useEffect(() => {
     setValues('');
   }, [values]);
- 
 
   return (
     <div className="auth">
