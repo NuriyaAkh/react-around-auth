@@ -22,7 +22,7 @@ export default function Main({
           <img
             className="profile__img"
             src={currentUser.avatar}
-            alt="profile image"
+            alt="profile"
           />
           <div className="profile__img-edit-logo">
             <img

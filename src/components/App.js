@@ -3,7 +3,6 @@ import {Route, Switch, Redirect, useHistory} from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
-
 import ImagePopup from './ImagePopup';
 import '../index.css';
 import api from '../utils/api';
@@ -16,7 +15,7 @@ import ConfirmationPopup from './ConfirmationPopup';
 import Login from './Login';
 import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
-
+import InfoTooltip from './InfoTooltip';
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
@@ -27,11 +26,11 @@ function App() {
   const [cards, setCards] = useState([]);
   const [toDeleteCard, setToDeleteCard] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [isLoginOpen, setIsLoginOpen] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const history = useHistory();
-  const [email,setEmail]=useState('')
-
+  const [email, setEmail] = useState('');
+  const [isInfoToolPopupOpen, setInfoToolPopupOpen] = React.useState(false);
+  const [isInfoToolStatus, setInfoToolStatus] = React.useState('');
   //get user data
   useEffect(() => {
     api
@@ -55,7 +54,62 @@ function App() {
         console.error(`Error while executing cards data: ${err}`)
       );
   }, []);
+  useEffect(() => {
+    const userToken = localStorage.getItem('jwt');
+    if (userToken) {
+      auth
+        .validateUser(userToken)
+        .then((res) => {
+          if (res) {
+            setEmail(res.data.email);
+            setIsLoggedIn(true);
+            history.push('/');
+          } else {
+            localStorage.removeItem('jwt');
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [history]);
 
+  const onRegister = ({values}) => {
+    auth
+      .register(values)
+      .then((res) => {
+        if (res.data._id) {
+          setInfoToolStatus('success');
+          setInfoToolPopupOpen(true);
+          history.push('/signin');
+        } else {
+          setInfoToolStatus('fail');
+          setInfoToolPopupOpen(true);
+        }
+      })
+      .catch((err) => {
+        setInfoToolStatus('fail');
+        setInfoToolPopupOpen(true);
+      });
+  };
+  const onLogIn = (values) => {
+    auth
+      .login(values)
+      .then((res) => {
+        if (res.token) {
+          setIsLoggedIn(true);
+          setEmail(email);
+          localStorage.setItem('jwt', res.token);
+          localStorage.setItem('email', email);
+          history.push('/');
+        } else {
+          setInfoToolStatus('fail');
+          setInfoToolPopupOpen(true);
+        }
+      })
+      .catch((err) => {
+        setInfoToolStatus('fail');
+        setInfoToolPopupOpen(true);
+      });
+  };
   function handleAddPlaceClick() {
     setAddPlacePopupOpen(true);
   }
@@ -150,15 +204,15 @@ function App() {
     setEditProfilePopupOpen(false);
     setConfirmationPopupOpen(false);
     setSelectedCard(null);
-    setIsLoginOpen(false);
+    setInfoToolPopupOpen(false);
   }
   function onLogOut() {
-    localStorage.removeItem("jwt");
+    localStorage.removeItem('jwt');
     setIsLoggedIn(false);
-    history.push("/signin");
+    history.push('/signin');
     closeAllPopups();
   }
-  
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -176,17 +230,21 @@ function App() {
             />
           </ProtectedRoute>
           <Route path="/signup">
-            <Register />
+            <Register route="/signin" onRegister={onRegister} />
           </Route>
           <Route path="signin">
-            <Login></Login>
+            <Login route="signup" onLogIn={onLogIn}></Login>
           </Route>
           <Route>
             {isLoggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
           </Route>
         </Switch>
         <Footer />
-
+        <InfoTooltip
+          onClose={closeAllPopups}
+          isOpen={isInfoToolPopupOpen}
+          status={isInfoToolStatus}
+        />
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
