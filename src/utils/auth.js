@@ -9,11 +9,7 @@ const register = ({email, password}) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({email, password}),
-  }).then((res) => {
-    if (res.status === 201) {
-      return res.json();
-    }
-  });
+  }).then(checkServerResponse);
 };
 const login = ({email, password}) => {
   return fetch(`${BASE_URL}/signin`, {

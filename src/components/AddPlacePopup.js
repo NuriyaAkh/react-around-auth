@@ -38,6 +38,10 @@ export default function AddPlacePopup({isOpen, onUpdate, onClose, buttonText}) {
     // setIsImageLinkValid(e.target.validity.valid);
     setErrorMessage({imageLink: e.target.validationMessage});
   }
+  React.useEffect(() => {
+    setCardTitle('');
+    setImageLink('');
+}, [isOpen]);
   return (
     <PopupWithForm
       title="New place"

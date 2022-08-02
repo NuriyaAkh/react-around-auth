@@ -31,6 +31,7 @@ export default function PopupWithForm({
           name={name} 
           onSubmit={onSubmit}
           ref={formRef}
+          noValidate
         >
           {children}
         <button
@@ -39,7 +40,7 @@ export default function PopupWithForm({
               !isFormValid ? 'form__button_disabled' : ''
             }`}
             disabled={!isFormValid}
-            noValidate
+            
         >
             {buttonText}
         </button>

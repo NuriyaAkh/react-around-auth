@@ -17,7 +17,7 @@ import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
 import InfoTooltip from './InfoTooltip';
 function App() {
-  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
   const [isConfirmationPopupOpen, setConfirmationPopupOpen] = useState(false);
@@ -78,15 +78,15 @@ function App() {
       .then((res) => {
         if (res.data._id) {
           setInfoToolStatus('success');
-          setInfoToolPopupOpen(true);
           history.push('/signin');
         } else {
           setInfoToolStatus('fail');
-          setInfoToolPopupOpen(true);
         }
       })
       .catch((err) => {
         setInfoToolStatus('fail');
+      })
+      .finally(() => {
         setInfoToolPopupOpen(true);
       });
   };
@@ -118,7 +118,7 @@ function App() {
     setEditAvatarPopupOpen(true);
   }
   function handleEditProfileClick() {
-    setEditProfilePopupOpen(true);
+    setIsEditProfilePopupOpen(true);
   }
   function handleImageClick(card) {
     setSelectedCard(card);
@@ -199,11 +199,23 @@ function App() {
   function closeAllPopups() {
     setAddPlacePopupOpen(false);
     setEditAvatarPopupOpen(false);
-    setEditProfilePopupOpen(false);
+    setIsEditProfilePopupOpen(false);
     setConfirmationPopupOpen(false);
     setSelectedCard(null);
     setInfoToolPopupOpen(false);
   }
+  useEffect(() => {
+    const closeByEscape = (e) => {
+      if (e.key === 'Escape') {
+        closeAllPopups();
+      }
+    };
+
+    document.addEventListener('keydown', closeByEscape);
+
+    return () => document.removeEventListener('keydown', closeByEscape);
+  }, []);
+
   function onLogOut() {
     localStorage.removeItem('jwt');
     setIsLoggedIn(false);

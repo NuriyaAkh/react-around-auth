@@ -1,6 +1,6 @@
 import React from 'react';
-import SuccessIcon from '../images/Checkmark.svg';
-import ErrorIcon from '../images/ErrorIcon.svg';
+import successIcon from '../images/Checkmark.svg';
+import errorIcon from '../images/ErrorIcon.svg';
 
 const InfoToolTip = ({isOpen, onClose, status}) => {
   return (
@@ -12,12 +12,12 @@ const InfoToolTip = ({isOpen, onClose, status}) => {
           className="forms__button-close"
           onClick={onClose}
         />
-        <form className="form" noValidate>
+        <div className="form">
           {status === 'success' ? (
             <div>
               <img
                 className="form__icon"
-                src={SuccessIcon}
+                src={successIcon}
                 alt="checkmark icon"
               />
               <p className="form__status-message">
@@ -26,13 +26,13 @@ const InfoToolTip = ({isOpen, onClose, status}) => {
             </div>
           ) : (
             <div>
-              <img className="form__icon" src={ErrorIcon} alt="error icon" />
+              <img className="form__icon" src={errorIcon} alt="error icon" />
               <p className="form__status-message">
                 Oops, something went wrong! Please try again.
               </p>
             </div>
           )}
-        </form>
+        </div>
       </div>
     </div>
   );
